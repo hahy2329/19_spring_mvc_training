@@ -61,7 +61,7 @@ public class BoardController {
 		mv.setViewName("board/boardList");
 		
 		//List<BoardDTO> boardList = boardService.getBoardList();
-		//mv.addObject("boardList","dbselect");
+		//mv.addObject("boardList","boardList");
 		
 		
 		List<BoardDTO> boardList = boardService.getBoardList();
