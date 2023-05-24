@@ -120,7 +120,7 @@ public class BoardController {
 		if (boardService.modifyBoard(boardDTO)) {
 			jsScript = "<script>";
 			jsScript += " alert('It is changed');";
-			jsScript += " location.href='boardList'";
+			jsScript += " location.href='boardList';";
 			jsScript += "</script>";
 		}
 		else {
