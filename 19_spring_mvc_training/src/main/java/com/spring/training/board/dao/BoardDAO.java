@@ -12,4 +12,12 @@ public interface BoardDAO {
 	
 	public List<BoardDTO> selectListBoard();
 	
+	public void updateReadCnt(long boardId);
+	public BoardDTO selectOneBoard(long boardId);
+	
+	public String selectOnePasswd(long boardId);
+	public void updateBoard(BoardDTO boardDTO);
+	
+	
+	public void deleteBoard(long boardId);
 }
