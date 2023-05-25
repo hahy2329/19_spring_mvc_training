@@ -50,7 +50,7 @@ public class BoardController {
 		
 		String jsScript = "<script>";
 		jsScript += "alert('Post Added');";
-		jsScript +="location.href='" + request.getContextPath()+ "/board/boardList';";
+		jsScript +="location.href='" + request.getContextPath()+ "boardList';";
 		
 		jsScript +="</script>";
 		
@@ -122,7 +122,7 @@ public class BoardController {
 		if (boardService.modifyBoard(boardDTO)) {
 			jsScript = "<script>";
 			jsScript += " alert('It is changed');";
-			jsScript += " location.href='"+ request.getContextPath() + "/board/boardList';";
+			jsScript += " location.href='"+ request.getContextPath() + "boardList';";
 			jsScript += "</script>";
 		}
 		else {
@@ -156,7 +156,7 @@ public class BoardController {
 			if (boardService.removeBoard(boardDTO)) {
 				jsScript = "<script>";
 				jsScript += " alert('It has been deleted.');";
-				jsScript += " location.href='"+ request.getContextPath() + "/board/boardList';";
+				jsScript += " location.href='"+ request.getContextPath() + "boardList';";
 				jsScript += "</script>";
 			}
 			else {
