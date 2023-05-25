@@ -2,6 +2,8 @@ package com.spring.training.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +28,7 @@ public class BoardController {
 	
 	
 	@GetMapping("/addBoard")
-	public ModelAndView addBoard() {
+	public ModelAndView addBoard() throws Exception {
 		
 	//	ModelAndView mv = new ModelAndView();
 	//	mv.setViewName("board/addBoard");
@@ -39,7 +41,7 @@ public class BoardController {
 	
 	@PostMapping("/addBoard")
 	@ResponseBody
-	public String addBoard(@ModelAttribute BoardDTO boardDTO) {
+	public String addBoard(@ModelAttribute BoardDTO boardDTO, HttpServletRequest request) throws Exception {
 		
 		
 		//System.out.println(boardDTO);
@@ -48,7 +50,7 @@ public class BoardController {
 		
 		String jsScript = "<script>";
 		jsScript += "alert('Post Added');";
-		jsScript +="location.href='addBoard';";
+		jsScript +="location.href='" + request.getContextPath()+ "/board/boardList';";
 		
 		jsScript +="</script>";
 		
@@ -56,7 +58,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/boardList")
-	public ModelAndView boardList(){
+	public ModelAndView boardList() throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("board/boardList");
@@ -83,7 +85,7 @@ public class BoardController {
 	
 	
 	@GetMapping("/boardDetail")
-	public ModelAndView boardDetail(@RequestParam("boardId") long boardId){
+	public ModelAndView boardDetail(@RequestParam("boardId") long boardId) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("board/boardDetail");
@@ -99,7 +101,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/modifyBoard")
-	public ModelAndView modifyBoard(@RequestParam("boardId") long boardId) {
+	public ModelAndView modifyBoard(@RequestParam("boardId") long boardId) throws Exception {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("board/modifyBoard");
@@ -112,7 +114,7 @@ public class BoardController {
 	
 	@PostMapping("/modifyBoard")
 	@ResponseBody
-	public String modifyBoard(@ModelAttribute BoardDTO boardDTO) {
+	public String modifyBoard(@ModelAttribute BoardDTO boardDTO, HttpServletRequest request) throws Exception {
 		
 		//System.out.println(boardDTO);
 		
@@ -120,7 +122,7 @@ public class BoardController {
 		if (boardService.modifyBoard(boardDTO)) {
 			jsScript = "<script>";
 			jsScript += " alert('It is changed');";
-			jsScript += " location.href='boardList';";
+			jsScript += " location.href='"+ request.getContextPath() + "/board/boardList';";
 			jsScript += "</script>";
 		}
 		else {
@@ -136,7 +138,7 @@ public class BoardController {
 		
 		
 		@GetMapping("/removeBoard")
-		public ModelAndView removeBoard(@RequestParam("boardId") long boardId) {
+		public ModelAndView removeBoard(@RequestParam("boardId") long boardId) throws Exception {
 			
 			ModelAndView mv = new ModelAndView("board/removeBoard");
 			mv.addObject("boardDTO", boardService.getBoardDetail(boardId, false));
@@ -147,14 +149,14 @@ public class BoardController {
 		
 		@PostMapping("/removeBoard")
 		@ResponseBody
-		public String removeBoard(@ModelAttribute BoardDTO boardDTO) {
+		public String removeBoard(@ModelAttribute BoardDTO boardDTO, HttpServletRequest request) throws Exception {
 			
 			//System.out.println(boardDTO);
 			String jsScript ="";
 			if (boardService.removeBoard(boardDTO)) {
 				jsScript = "<script>";
 				jsScript += " alert('It has been deleted.');";
-				jsScript += " location.href='boardList'";
+				jsScript += " location.href='"+ request.getContextPath() + "/board/boardList';";
 				jsScript += "</script>";
 			}
 			else {
