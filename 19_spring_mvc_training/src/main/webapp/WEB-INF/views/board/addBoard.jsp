@@ -1,7 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-
+<!--${pageContext.request.contextPath}는  -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +10,7 @@
 <script src="${contextPath }/resources/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-	<h3>게시글 작성</h3>
+	<h3>게시글 작성${contextPath }</h3>
 	<form action="${contextPath }/board/addBoard" method="post">
 		<table border="1" >
 			<tr>
