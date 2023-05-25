@@ -48,7 +48,7 @@ import com.spring.training.board.dto.BoardDTO;
 
 
 @Service
-public class BoardServiceImpl implements BoardService {
+public class BoardServiceImpl implements BoardService  {
 
 	@Autowired //인터페이스 BoardDAO를 가져온다.
 	private BoardDAO boardDAO;
@@ -58,7 +58,7 @@ public class BoardServiceImpl implements BoardService {
 	
 
 	@Override
-	public void addBoard(BoardDTO boardDTO) {
+	public void addBoard(BoardDTO boardDTO) throws Exception {
 		
 	
 		
@@ -71,7 +71,7 @@ public class BoardServiceImpl implements BoardService {
 
 
 	@Override
-	public List<BoardDTO> getBoardList() {
+	public List<BoardDTO> getBoardList() throws Exception {
 		
 		//List<BoardDTO> boardList = boardDAO.selectListBoard();
 		
@@ -83,7 +83,7 @@ public class BoardServiceImpl implements BoardService {
 
 
 	@Override
-	public BoardDTO getBoardDetail(long boardId, boolean isUpdateReadCnt) {
+	public BoardDTO getBoardDetail(long boardId, boolean isUpdateReadCnt) throws Exception {
 		
 		
 		if(isUpdateReadCnt == true) {
@@ -97,7 +97,7 @@ public class BoardServiceImpl implements BoardService {
 
 
 	@Override
-	public boolean modifyBoard(BoardDTO boardDTO) {
+	public boolean modifyBoard(BoardDTO boardDTO) throws Exception {
 		boolean isUpdate = false;
 		
 		if(bCryptPasswordEncoder.matches(boardDTO.getPasswd(), boardDAO.selectOnePasswd(boardDTO.getBoardId()))) { //서로 비교
@@ -111,7 +111,7 @@ public class BoardServiceImpl implements BoardService {
 
 
 	@Override
-	public boolean removeBoard(BoardDTO boardDTO) {
+	public boolean removeBoard(BoardDTO boardDTO) throws Exception {
 		boolean isDelete = false;
 		
 		String encodedPassword = boardDAO.selectOnePasswd(boardDTO.getBoardId());
@@ -120,11 +120,8 @@ public class BoardServiceImpl implements BoardService {
 		
 		if(isValid) {
 			boardDAO.deleteBoard(boardDTO.getBoardId());
-			isValid = true;
+			isDelete = true;
 		}
-		
-		
-		
 		
 		return isDelete;
 	}
