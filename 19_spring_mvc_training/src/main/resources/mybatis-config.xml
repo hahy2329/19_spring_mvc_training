@@ -11,7 +11,10 @@
 	
 	<typeAliases>
 	
-		<typeAlias type="com.spring.training.board.dto.BoardDTO" alias="BoardDTO"/>
+		<typeAlias type="com.spring.training.board.dto.BoardDTO" 			   alias="BoardDTO"/>
+		<typeAlias type="com.spring.training.member.dto.MemberDTO" 	   		   alias="MemberDTO"/>
+		<typeAlias type="com.spring.training.boardAdvance.dto.MainBoardDTO"    alias="MainBoardDTO"/>
+		<typeAlias type="com.spring.training.boardAdvance.dto.ReplyDTO" 	   alias="ReplyDTO"/>
 		
 	</typeAliases>	
 		

@@ -40,6 +40,18 @@
 			<version>${org.aspectj-version}</version>
 		</dependency>	
 		
+		<dependency>
+		   <groupId>org.aspectj</groupId>
+		   <artifactId>aspectjweaver</artifactId>
+		   <version>1.6.11</version>
+		 </dependency>
+	
+	    <dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-aop</artifactId>
+		  <version>${org.springframework-version}</version>
+	    </dependency>
+		
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -115,7 +127,7 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency> 
+		</dependency>
 		
 		<!-- 컨넥션 풀 라이브러리 -->
 		<dependency>
@@ -153,16 +165,61 @@
 		</dependency>
 		
 		<dependency>
-	    <groupId>org.springframework.security</groupId>
-	    <artifactId>spring-security-web</artifactId>
-	    <version>5.0.8.RELEASE</version>
-	</dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>5.0.8.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>5.0.8.RELEASE</version>
+		</dependency>
+		        
+		<!-- Excel-->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.17</version>
+		</dependency>
+		
+		<!--  tiles  -->
+		<dependency>
+	    	<groupId>org.apache.tiles</groupId>
+	    	<artifactId>tiles-core</artifactId>
+	    	<version>3.0.7</version>
+        </dependency>
+        <dependency>
+	    	<groupId>org.apache.tiles</groupId>
+	    	<artifactId>tiles-jsp</artifactId>
+	    	<version>3.0.7</version>
+        </dependency>
+        <dependency>
+	    	<groupId>org.apache.tiles</groupId>
+	    	<artifactId>tiles-servlet</artifactId>
+	    	<version>3.0.7</version>
+        </dependency>
+        
+	   <!-- 파일 업로드 -->
+       <dependency>
+       		<groupId>commons-fileupload</groupId>
+       		<artifactId>commons-fileupload</artifactId>
+       		<version>1.3.1</version>
+       </dependency>
+       
+       <!-- 썸네일 -->
+       <dependency>
+       		<groupId>net.coobird</groupId> 
+       		<artifactId>thumbnailator</artifactId> 
+       		<version>0.4.8</version> 
+       </dependency> 
 	
-	<dependency>
-	    <groupId>org.springframework.security</groupId>
-	    <artifactId>spring-security-config</artifactId>
-	    <version>5.0.8.RELEASE</version>
-	</dependency>
+		<!-- jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.9.2</version>
+		</dependency>           
 		
 		
 		       
