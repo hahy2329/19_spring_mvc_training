@@ -15,5 +15,5 @@ public interface MemberDAO {
 	public void updateMember(MemberDTO memberDTO) throws Exception;
 	public void deleteMember(String memberId) throws Exception;
 	public List<MemberDTO> selectListSearchMember(Map<String,String> searchMap) throws Exception;
-	
+	public int selectOneTodayNewMemberCnt(String today) throws Exception;
 }

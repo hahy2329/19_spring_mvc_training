@@ -56,4 +56,9 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectList("member.selectListSearchMember" , searchMap);
 	}
 	
+	@Override
+	public int selectOneTodayNewMemberCnt(String today) throws Exception {
+		return sqlSession.selectOne("member.selectOneMemberCnt" , today);
+	}
+	
 }

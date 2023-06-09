@@ -23,4 +23,6 @@ public interface BoardAdvanceService {
 	public boolean modifyReply(ReplyDTO replyDTO) throws Exception;
 	public boolean removeReply(ReplyDTO replyDTO) throws Exception;
 	
+	
+	public void getTodayEnrolledBoardAndReplyCnt() throws Exception;
 }

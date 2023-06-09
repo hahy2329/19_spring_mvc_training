@@ -96,5 +96,15 @@ public class BoardAdvanceDAOImpl implements BoardAdvanceDAO {
 		return sqlSession.selectOne("boardAdvanceMapper.selectOneValidateReplyUserCheck" , replyId);
 	}
 	
+	@Override
+	public int selectOneTodayEnrolledBoardCnt(String today) throws Exception {
+		return sqlSession.selectOne("boardAdvanceMapper.selectOneTodayEnrolledBoardCnt" , today);
+	}
+
+	@Override
+	public int selectOneTodayEnrolledReplyCnt(String today) throws Exception {
+		return sqlSession.selectOne("boardAdvanceMapper.selectOneTodayEnrolledReplyCnt" , today);
+	}
+	
 
 }

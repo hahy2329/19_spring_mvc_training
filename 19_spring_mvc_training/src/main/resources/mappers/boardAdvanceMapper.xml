@@ -250,5 +250,23 @@
 		WHERE
 				REPLY_ID = #{replyId}
 	</select>
+	
+	<select id="selectOneTodayEnrolledBoardCnt" parameterType="String" resultType="int">
+		SELECT
+				COUNT(BOARD_ID)
+		FROM
+				MAIN_BOARD
+		WHERE
+				LEFT(ENROLL_DT , 10) = #{today}
+	</select>
+	
+	<select id="selectOneTodayEnrolledReplyCnt" parameterType="String" resultType="int">
+		SELECT
+				COUNT(BOARD_ID)
+		FROM
+				REPLY
+		WHERE
+				LEFT(ENROLL_DT , 10) = #{today}
+	</select>
 
  </mapper>

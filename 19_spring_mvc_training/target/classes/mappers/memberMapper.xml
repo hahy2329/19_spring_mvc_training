@@ -136,6 +136,18 @@
 				NAMUJI_ADDRESS LIKE CONCAT ('%' , #{searchWord} , '%'))
 			</if>
 		</where>
-	</select>
+	
+	
+		</select>
+		
+			<select id="selectOneMemberCnt" parameterType="String" resultType="int">
+			SELECT
+					COUNT(MEMBER_ID)
+			FROM
+					MEMBER
+			WHERE 
+					LEFT(JOIN_DT , 10) = #{today}
+		</select>
+		
 	
 </mapper>

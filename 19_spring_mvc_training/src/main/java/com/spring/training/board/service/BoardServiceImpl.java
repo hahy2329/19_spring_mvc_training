@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.training.board.dao.BoardDAO;
 import com.spring.training.board.dto.BoardDTO;
@@ -83,11 +84,13 @@ public class BoardServiceImpl implements BoardService  {
 
 
 	@Override
+	@Transactional//이유는 if문절에 update가 가능해도 밑에줄에 오류가 발생하면 실행이 되어선 안된다.
 	public BoardDTO getBoardDetail(long boardId, boolean isUpdateReadCnt) throws Exception {
 		
 		
 		if(isUpdateReadCnt == true) {
 			boardDAO.updateReadCnt(boardId);
+			//~~~~~~~이쪽에 오류가 난다면?
 		}
 		
 		
@@ -97,6 +100,7 @@ public class BoardServiceImpl implements BoardService  {
 
 
 	@Override
+	@Transactional
 	public boolean modifyBoard(BoardDTO boardDTO) throws Exception {
 		boolean isUpdate = false;
 		
@@ -111,6 +115,7 @@ public class BoardServiceImpl implements BoardService  {
 
 
 	@Override
+	@Transactional
 	public boolean removeBoard(BoardDTO boardDTO) throws Exception {
 		boolean isDelete = false;
 		

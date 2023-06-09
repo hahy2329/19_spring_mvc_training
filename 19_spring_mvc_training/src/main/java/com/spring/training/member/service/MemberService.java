@@ -16,4 +16,6 @@ public interface MemberService {
 	public String checkOverlappedId(String memberId) throws Exception; 
 	public List<MemberDTO> getMemberSearchList(Map<String,String> searchMap) throws Exception;
 	
+	
+	public void getTodayNewMemberCnt() throws Exception;
 }
