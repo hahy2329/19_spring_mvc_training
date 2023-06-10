@@ -1,15 +1,22 @@
 package com.spring.training.member.service;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.training.member.dao.MemberDAO;
 import com.spring.training.member.dto.MemberDTO;
+
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -22,6 +29,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	private String FILE_REPO_PATH = "C:\\spring_mvc_member_file_repo\\";
 	
+	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
 	
 	@Override
 	public void addMember(MemberDTO memberDTO) throws Exception {
@@ -55,6 +63,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	@Transactional
 	public boolean modifyMember(MemberDTO memberDTO) throws Exception {
 		
 		MemberDTO dbMemberDTO = memberDAO.selectOneloginMember(memberDTO);
@@ -69,6 +78,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	@Transactional
 	public boolean removeMember(MemberDTO memberDTO) throws Exception {
 		
 		MemberDTO dbMemberDTO = memberDAO.selectOneloginMember(memberDTO);
@@ -99,6 +109,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberDTO> getMemberSearchList(Map<String, String> searchMap) throws Exception {
 		return memberDAO.selectListSearchMember(searchMap);
+	}
+	
+	@Override
+	@Scheduled(cron="59 59 23 * * *")
+	public void getTodayNewMemberCnt() throws Exception {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(new Date());
+		logger.info("(" + today + ") 신규회원수 : " + memberDAO.selectOneTodayNewMemberCnt(today));
+		
 	}
 	
 }

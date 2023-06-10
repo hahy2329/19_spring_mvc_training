@@ -26,4 +26,7 @@ public interface BoardAdvanceDAO {
 	public void deleteReply(long replyId) throws Exception;
 	public String selectOneValidateReplyUserCheck(long replyId) throws Exception;
 	
+	
+	public int selectOneTodayEnrolledBoardCnt(String today) throws Exception;
+	public int selectOneTodayEnrolledReplyCnt(String today) throws Exception;
 }

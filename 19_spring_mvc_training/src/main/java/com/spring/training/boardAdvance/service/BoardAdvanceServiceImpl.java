@@ -1,13 +1,19 @@
 package com.spring.training.boardAdvance.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.training.boardAdvance.dao.BoardAdvanceDAO;
 import com.spring.training.boardAdvance.dto.MainBoardDTO;
@@ -22,6 +28,8 @@ public class BoardAdvanceServiceImpl implements BoardAdvanceService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	private static final Logger logger = LoggerFactory.getLogger(BoardAdvanceServiceImpl.class);
+	
 	@Override
 	public List<MainBoardDTO> getBoardList(Map<String, Object> searchMap) throws Exception{
 		return boardAdvanceDAO.selectListBoard(searchMap);
@@ -33,6 +41,7 @@ public class BoardAdvanceServiceImpl implements BoardAdvanceService {
 	}
 
 	@Override
+	@Transactional
 	public MainBoardDTO getBoardDetail(long boardId, boolean isIncreaseReadCnt) throws Exception {
 		if(isIncreaseReadCnt) {
 			boardAdvanceDAO.updateReadCnt(boardId);
@@ -47,6 +56,7 @@ public class BoardAdvanceServiceImpl implements BoardAdvanceService {
 	}
 	
 	@Override
+	@Transactional
 	public boolean modifyBoard(MainBoardDTO mainBoardDTO) throws Exception {
 		boolean isUpdate = false;
 		if (bCryptPasswordEncoder.matches(mainBoardDTO.getPasswd() , boardAdvanceDAO.selectOneValidateBoardUserCheck(mainBoardDTO.getBoardId()))) {
@@ -57,6 +67,7 @@ public class BoardAdvanceServiceImpl implements BoardAdvanceService {
 	}
 
 	@Override
+	@Transactional
 	public boolean removeBoard(MainBoardDTO mainBoardDTO) throws Exception {
 		boolean isDelete = false;
 		if (bCryptPasswordEncoder.matches(mainBoardDTO.getPasswd() , boardAdvanceDAO.selectOneValidateBoardUserCheck(mainBoardDTO.getBoardId()))) {
@@ -123,6 +134,7 @@ public class BoardAdvanceServiceImpl implements BoardAdvanceService {
 	}
 
 	@Override
+	@Transactional
 	public boolean modifyReply(ReplyDTO replyDTO) throws Exception {
 		if (bCryptPasswordEncoder.matches(replyDTO.getPasswd() , boardAdvanceDAO.selectOneValidateReplyUserCheck(replyDTO.getReplyId()))) {
 			boardAdvanceDAO.updateReply(replyDTO);
@@ -132,12 +144,26 @@ public class BoardAdvanceServiceImpl implements BoardAdvanceService {
 	}
 
 	@Override
+	@Transactional
 	public boolean removeReply(ReplyDTO replyDTO) throws Exception {
 		if (bCryptPasswordEncoder.matches(replyDTO.getPasswd() , boardAdvanceDAO.selectOneValidateReplyUserCheck(replyDTO.getReplyId()))) {
 			boardAdvanceDAO.deleteReply(replyDTO.getReplyId());
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	@Scheduled(cron="59 59 23 * * *"
+	)
+	public void getTodayEnrolledBoardAndReplyCnt() throws Exception {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(new Date());
+		
+		logger.info("(" + today + ") 오늘의 게시글 등록수 : " + boardAdvanceDAO.selectOneTodayEnrolledBoardCnt(today));
+		logger.info("(" + today + ") 오늘의 댓글 등록수 : " + boardAdvanceDAO.selectOneTodayEnrolledReplyCnt(today));
+		
 	}
 
 	
